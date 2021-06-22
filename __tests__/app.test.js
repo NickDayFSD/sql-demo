@@ -4,7 +4,7 @@ import request from 'supertest';
 import app from '../lib/app.js';
 import User from '../lib/models/User.js';
 
-describe.skip('demo routes', () => {
+describe('demo routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -20,7 +20,7 @@ describe.skip('demo routes', () => {
     expect(res.body).toEqual({ id: '1', name: 'Chase', catchPhrase: 'get it' });
   });
 
-  it.skip('GET a profile and its pokemon by id', async () => {
+  it('GET a profile and its pokemon by id', async () => {
     await User.insert({
       name: 'Tucker'
     });
