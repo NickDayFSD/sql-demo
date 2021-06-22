@@ -25,7 +25,28 @@ describe('Pokemon API and associated functions', () => {
   it('Takes in a name and produces a number', () => {
     const name = 'nick';
 
-    const number = parseInt(name, 36);
+    function getPokemon(total, name, i) {
+      return total += parseInt(name[i], 36);
+    }
+
+    function makeReasonableNumber(name) {
+      const numArr = [];
+      for (let i; i < name.length; i++) {
+        console.log(name[i]);
+        const number = parseInt(name[i], 36);
+        numArr.push(number);
+      }
+      return numArr;
+    }
+
+    const number = makeReasonableNumber(name);
+
+    // constnumber = getPokemon(total, name, i);
+    // const number = 0;
+    // for (let i; i < name.length; i++) {
+    //   const num = parseInt(name[i], 36);
+    //   console.log(num);
+    // }
 
     expect(number).toBe(37);
   });
