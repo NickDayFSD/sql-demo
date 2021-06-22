@@ -38,6 +38,6 @@ describe('Pokemon API and associated functions', () => {
 
     const number = makeReasonableNumber(name);
 
-    expect(number).toBe(37);
+    expect(number).toBe(113);
   });
 });
