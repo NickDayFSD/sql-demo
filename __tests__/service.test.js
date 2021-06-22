@@ -32,4 +32,12 @@ describe('Pokemon API and associated functions', () => {
 
     expect(number).toBe(37);
   });
+
+  it('Takes in a name with spaces and produces a number', () => {
+    const name = 'nick the brick';
+
+    const number = makeReasonableNumber(name);
+
+    expect(number).toBe(37);
+  });
 });
