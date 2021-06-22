@@ -30,13 +30,12 @@ describe('Pokemon API and associated functions', () => {
     }
 
     function makeReasonableNumber(name) {
+      const letArr = name.split('');
       const numArr = [];
-      for (let i; i < name.length; i++) {
-        console.log(name[i]);
-        const number = parseInt(name[i], 36);
-        numArr.push(number);
-      }
-      return numArr;
+      letArr.forEach(letter => {
+        numArr.push(parseInt(letter, 36) - 9);
+      });
+      return numArr.reduce((a, b) => a + b, 0);
     }
 
     const number = makeReasonableNumber(name);
