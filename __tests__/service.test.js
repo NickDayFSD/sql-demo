@@ -1,4 +1,7 @@
 import Pokedex from 'pokedex-promise-v2';
+import {
+  makeReasonableNumber
+} from '../lib/utils/pokedex.js';
 
 describe('Pokemon API and associated functions', () => {
 
@@ -25,27 +28,7 @@ describe('Pokemon API and associated functions', () => {
   it('Takes in a name and produces a number', () => {
     const name = 'nick';
 
-    function getPokemon(total, name, i) {
-      return total += parseInt(name[i], 36);
-    }
-
-    function makeReasonableNumber(name) {
-      const letArr = name.split('');
-      const numArr = [];
-      letArr.forEach(letter => {
-        numArr.push(parseInt(letter, 36) - 9);
-      });
-      return numArr.reduce((a, b) => a + b, 0);
-    }
-
     const number = makeReasonableNumber(name);
-
-    // constnumber = getPokemon(total, name, i);
-    // const number = 0;
-    // for (let i; i < name.length; i++) {
-    //   const num = parseInt(name[i], 36);
-    //   console.log(num);
-    // }
 
     expect(number).toBe(37);
   });
