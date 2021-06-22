@@ -16,6 +16,6 @@ describe('demo routes', () => {
         catchPhrase: 'got em!'
       });
 
-    expect(res.body).toEqual({ id: 1, name: 'Chase', catchPhrase: 'got em!' });
+    expect(res.body).toEqual({ id: '1', name: 'Chase', catchPhrase: 'got em!' });
   });
 });
