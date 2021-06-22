@@ -2,6 +2,11 @@ import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
+import User from '../lib/models/User.js';
+
+import { getPokemon } from '../lib/utils/pokedex.js';
+
+console.log(getPokemon(1));
 
 describe('demo routes', () => {
   beforeEach(() => {
@@ -13,9 +18,23 @@ describe('demo routes', () => {
       .post('/api/v1/users')
       .send({
         name: 'Chase',
-        catchPhrase: 'got em!'
+        catchPhrase: 'get it'
       });
 
-    expect(res.body).toEqual({ id: '1', name: 'Chase', catchPhrase: 'got em!' });
+    expect(res.body).toEqual({ id: '1', name: 'Chase', catchPhrase: 'get it' });
+  });
+
+  it('GET a profile and its pokemon by id', async () => {
+    await User.insert({
+      name: 'Tucker'
+    });
+
+    const res = await request(app).get('/api/v1/profiles/1');
+
+    expect(res.body).toEqual({
+      id: '1',
+      name: 'Tucker',
+      pokemon: expect.any(String)
+    });
   });
 });
