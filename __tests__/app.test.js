@@ -62,4 +62,24 @@ describe('demo routes', () => {
       pokemon: expect.any(String)
     }]);
   });
+
+  it('DELETE a user', async () => {
+    await UserService.makeUserWithPokemon({
+      name: 'Delete Me',
+      catchPhrase: 'nah'
+    });
+    await UserService.makeUserWithPokemon({
+      name: 'Keep Me',
+      catchPhrase: 'get it'
+    });
+
+    const res = await request(app).delete('/api/v1/users/1');
+
+    expect(res.body).toEqual({
+      id: '1',
+      name: 'Delete Me',
+      catchPhrase: 'nah',
+      pokemon: expect.any(String)
+    });
+  });
 });
