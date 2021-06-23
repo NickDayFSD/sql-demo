@@ -17,10 +17,10 @@ describe('demo routes', () => {
         catchPhrase: 'get it'
       });
 
-    expect(res.body).toEqual({ id: '1', name: 'Chase', catchPhrase: 'get it' });
+    expect(res.body).toEqual({ id: '1', name: 'Chase', catchPhrase: 'get it', pokemon: expect.any(String) });
   });
 
-  it('GET a profile and its pokemon by id', async () => {
+  it.skip('GET a profile and its pokemon by id', async () => {
     await User.insert({
       name: 'Tucker',
       catchphrase: ''
@@ -36,7 +36,7 @@ describe('demo routes', () => {
     });
   });
 
-  it('GET all profiles and their pokemon', async () => {
+  it.skip('GET all profiles and their pokemon', async () => {
     await User.insert({
       name: 'Joe',
       catchphrase: 'nah'
