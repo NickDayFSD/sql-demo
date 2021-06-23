@@ -35,4 +35,30 @@ describe('demo routes', () => {
       pokemon: expect.any(String)
     });
   });
+
+  it('GET all profiles and their pokemon', async () => {
+    await User.insert({
+      name: 'Joe',
+      catchphrase: 'nah'
+    },
+    {
+      name: 'Chase',
+      catchPhrase: 'get it'
+    });
+
+    const res = await request(app).get('/api/v1/users');
+
+    expect(res.body).toEqual({
+      id: '1',
+      name: 'Joe',
+      catchPhrase: 'nah',
+      pokemon: expect.any(String)
+    },
+    {
+      id: '2',
+      name: 'Chase',
+      catchPhrase: 'get it',
+      pokemon: expect.any(String)
+    });
+  });
 });
