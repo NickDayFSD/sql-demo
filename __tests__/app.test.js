@@ -82,4 +82,31 @@ describe('demo routes', () => {
       pokemon: expect.any(String)
     });
   });
+
+  it('Make a change to a user with PUT', async () => {
+    await UserService.makeUserWithPokemon({
+      name: 'Joe',
+      catchPhrase: 'nah'
+    });
+    const Chase = await UserService.makeUserWithPokemon({
+      name: 'Chase',
+      catchPhrase: 'get it'
+    });
+
+    Chase.catchPhrase = 'don\'t get it';
+
+    const res = await request(app)
+      .put(`/api/v1/users/${Chase.id}`)
+      .send(Chase);
+
+    expect(res.body).toEqual({
+      id: '2',
+      name: 'Chase',
+      catchPhrase: 'don\'t get it',
+      pokemon: expect.any(String)
+    });
+
+
+  });
 });
+62;
