@@ -40,16 +40,16 @@ describe('demo routes', () => {
   it('GET all profiles and their pokemon', async () => {
     await UserService.makeUserWithPokemon({
       name: 'Joe',
-      catchphrase: 'nah'
-    },
-    {
+      catchPhrase: 'nah'
+    });
+    await UserService.makeUserWithPokemon({
       name: 'Chase',
       catchPhrase: 'get it'
     });
 
     const res = await request(app).get('/api/v1/users');
 
-    expect(res.body).toEqual({
+    expect(res.body).toEqual([{
       id: '1',
       name: 'Joe',
       catchPhrase: 'nah',
@@ -60,6 +60,6 @@ describe('demo routes', () => {
       name: 'Chase',
       catchPhrase: 'get it',
       pokemon: expect.any(String)
-    });
+    }]);
   });
 });
