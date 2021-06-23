@@ -3,6 +3,7 @@ import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 import User from '../lib/models/User.js';
+import UserService from '../lib/services/UserService.js';
 
 describe('demo routes', () => {
   beforeEach(() => {
@@ -20,8 +21,8 @@ describe('demo routes', () => {
     expect(res.body).toEqual({ id: '1', name: 'Chase', catchPhrase: 'get it', pokemon: expect.any(String) });
   });
 
-  it.skip('GET a profile and its pokemon by id', async () => {
-    await User.insert({
+  it('GET a profile and its pokemon by id', async () => {
+    await UserService.makeUserWithPokemon({
       name: 'Tucker',
       catchphrase: ''
     });
@@ -36,8 +37,8 @@ describe('demo routes', () => {
     });
   });
 
-  it.skip('GET all profiles and their pokemon', async () => {
-    await User.insert({
+  it('GET all profiles and their pokemon', async () => {
+    await UserService.makeUserWithPokemon({
       name: 'Joe',
       catchphrase: 'nah'
     },
