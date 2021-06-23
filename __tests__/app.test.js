@@ -22,14 +22,16 @@ describe('demo routes', () => {
 
   it('GET a profile and its pokemon by id', async () => {
     await User.insert({
-      name: 'Tucker'
+      name: 'Tucker',
+      catchphrase: ''
     });
 
-    const res = await request(app).get('/api/v1/profiles/1');
+    const res = await request(app).get('/api/v1/users/1');
 
     expect(res.body).toEqual({
       id: '1',
       name: 'Tucker',
+      catchPhrase: null,
       pokemon: expect.any(String)
     });
   });
