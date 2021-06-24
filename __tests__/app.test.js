@@ -2,7 +2,7 @@ import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
-import User from '../lib/models/User.js';
+import UserService from '../lib/services/UserService.js';
 
 describe('demo routes', () => {
   beforeEach(() => {
@@ -17,11 +17,11 @@ describe('demo routes', () => {
         catchPhrase: 'get it'
       });
 
-    expect(res.body).toEqual({ id: '1', name: 'Chase', catchPhrase: 'get it' });
+    expect(res.body).toEqual({ id: '1', name: 'Chase', catchPhrase: 'get it', pokemon: expect.any(String) });
   });
 
   it('GET a profile and its pokemon by id', async () => {
-    await User.insert({
+    await UserService.makeUserWithPokemon({
       name: 'Tucker',
       catchphrase: ''
     });
@@ -37,18 +37,18 @@ describe('demo routes', () => {
   });
 
   it('GET all profiles and their pokemon', async () => {
-    await User.insert({
+    await UserService.makeUserWithPokemon({
       name: 'Joe',
-      catchphrase: 'nah'
-    },
-    {
+      catchPhrase: 'nah'
+    });
+    await UserService.makeUserWithPokemon({
       name: 'Chase',
       catchPhrase: 'get it'
     });
 
     const res = await request(app).get('/api/v1/users');
 
-    expect(res.body).toEqual({
+    expect(res.body).toEqual([{
       id: '1',
       name: 'Joe',
       catchPhrase: 'nah',
@@ -59,6 +59,45 @@ describe('demo routes', () => {
       name: 'Chase',
       catchPhrase: 'get it',
       pokemon: expect.any(String)
+    }]);
+  });
+
+  it('DELETE a user', async () => {
+    await UserService.makeUserWithPokemon({
+      name: 'Delete Me',
+      catchPhrase: 'nah'
     });
+    await UserService.makeUserWithPokemon({
+      name: 'Keep Me',
+      catchPhrase: 'get it'
+    });
+
+    const res = await request(app).delete('/api/v1/users/1');
+
+    expect(res.body).toEqual({
+      id: '1',
+      name: 'Delete Me',
+      catchPhrase: 'nah',
+      pokemon: expect.any(String)
+    });
+  });
+
+  it('Make a change to a user with PUT', async () => {
+    await UserService.makeUserWithPokemon({
+      name: 'Joe',
+      catchPhrase: 'nah'
+    });
+    const Chase = await UserService.makeUserWithPokemon({
+      name: 'Chase',
+      catchPhrase: 'get it'
+    });
+
+    Chase.catchPhrase = 'don\'t get it';
+
+    const res = await request(app)
+      .put(`/api/v1/users/${Chase.id}`)
+      .send(Chase);
+
+    expect(res.body).toEqual(Chase);
   });
 });
