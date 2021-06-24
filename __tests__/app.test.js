@@ -2,7 +2,6 @@ import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
-import User from '../lib/models/User.js';
 import UserService from '../lib/services/UserService.js';
 
 describe('demo routes', () => {
@@ -102,4 +101,3 @@ describe('demo routes', () => {
     expect(res.body).toEqual(Chase);
   });
 });
-62;
