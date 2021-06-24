@@ -99,14 +99,7 @@ describe('demo routes', () => {
       .put(`/api/v1/users/${Chase.id}`)
       .send(Chase);
 
-    expect(res.body).toEqual({
-      id: '2',
-      name: 'Chase',
-      catchPhrase: 'don\'t get it',
-      pokemon: expect.any(String)
-    });
-
-
+    expect(res.body).toEqual(Chase);
   });
 });
 62;
